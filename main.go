@@ -7,6 +7,8 @@ import (
   	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/jackc/pgx/v5"
+	"github.com/joho/godotenv"
+	"os"
 )
 
 type Question struct {
@@ -29,10 +31,10 @@ type SubmitRequest struct {
 }
 
 func main() {
-
+	godotenv.Load()
 	conn, err := pgx.Connect(
 		context.Background(),
-		"postgres://postgres:8;p@localhost:5432/exam_db",
+		os.Getenv("DATABASE_URL"),
 	)
 
 	if err != nil {
